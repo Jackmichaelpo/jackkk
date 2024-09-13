@@ -1,0 +1,63 @@
+<html>
+  <head>
+  <style>
+    input[type="number"]{
+      text-align: right;
+      width: 100px;
+    }
+  </style>
+  <script>
+    function disableAmtBox(id,buton) {
+      document.getElementById(id).disabled = true;
+      document.getElementById(buton).disabled = false;
+    }
+    function enableAmtBox(id) {
+      document.getElementById(id).disabled = false;
+    }
+    function toggleText(id,qty,price,total,buton) {
+      let toggleChk = document.getElementById(id).checked;
+      if (toggleChk) {
+        enableAmtBox(qty);
+      } else {
+        disableAmtBox(qty,buton);
+      }
+      resetAmt(qty,price,total);
+    }
+    function computeAmt(qty,price,total,buton) {
+      let qty1 = Number(document.getElementById(qty).value);
+      let price1 = Number(document.getElementById(price).value);
+      document.getElementById(total).value = (qty1 * price1).toFixed(2);
+      if (qty1>0) document.getElementById(buton).disabled = false;
+    }
+    function resetAmt(qty,price,total) {
+      document.getElementById(qty).value = '0.00';
+      document.getElementById(total).value = '0.00';
+    }
+    function gotoCart() {
+      window.location.href = "https://www.google.com";
+    }
+  </script>
+  </head>
+  <body>
+    <table cellpadding="100" border="1">
+      <tr>
+        <td>
+          T-Shirt 1<br />
+          <input type="checkbox" id="item1" onchange="toggleText(this.id,'qty1','price1','total1','addtocart1');">
+          <input type="number" id="qty1" disabled="disabled" value="0.00" onblur="computeAmt(this.id,'price1','total1','addtocart1');"/>
+          <input type="number" disabled="disabled" id="price1" value="50.25"/>
+          <input type="number" disabled="disabled" id="total1" value="0.00"/>
+          <input type="button" id="addtocart1" disabled="disabled" value="Add to Cart" onclick="gotoCart();"/>
+        </td>
+        <td>
+          T-Shirt 2<br />
+          <input type="checkbox" id="item2" onchange="toggleText(this.id,'qty2','price2','total2','addtocart2');">
+          <input type="number" id="qty2" disabled="disabled" value="0.00" onblur="computeAmt(this.id,'price2','total2','addtocart2');"/>
+          <input type="number" disabled="disabled" id="price2" value="120.75"/>
+          <input type="number" disabled="disabled" id="total2" value="0.00"/>
+          <input type="button" id="addtocart2" disabled="disabled" value="Add to Cart"/>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
